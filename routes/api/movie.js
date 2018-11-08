@@ -12,7 +12,19 @@ router.get("/", protectRoute(), (req, res, next) => {
   movieService
     .getMovies()
     .then(movies => {
-      res.status(200).send({ movies });
+      res.status(200).send(movies);
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    });
+});
+
+router.get("/:id", protectRoute(), (req, res, next) => {
+  const movieId = req.params.id;
+  movieService
+    .getMovieById(movieId)
+    .then(movies => {
+      res.status(200).send(movies);
     })
     .catch(error => {
       res.status(500).send(error);
@@ -44,9 +56,9 @@ router.delete(
   (req, res, next) => {
     const movieId = req.params.id;
     movieService
-      .deleteMovie(id)
+      .deleteMovie(movieId)
       .then(() => {
-        res.status(200).send({ id });
+        res.status(200).send({ movieId });
       })
       .catch(error => {
         res.status(500).send(error);
@@ -77,6 +89,7 @@ router.put(
         res.status(201).send({ id });
       })
       .catch(error => {
+        console.log(error);
         res.status(500).send(error);
       });
   }
@@ -93,8 +106,8 @@ router.put(
 
     movieService
       .addReview(rating, comment, movieId, userId)
-      .then(id => {
-        res.status(201).send({ id });
+      .then(movie => {
+        res.status(201).send(movie);
       })
       .catch(error => {
         res.status(500).send(error);

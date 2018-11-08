@@ -19,7 +19,7 @@ router.post("/login", validate(validation.login), function(req, res, next) {
 
     logger.info(`auth: valid login credential, email:${req.body.email}`);
     const token = jwtHelper.signJWT({ _id: user._id, email: user.email });
-    res.status(200).send({ token });
+    res.status(200).send({ token, id: user._id, email: user.email });
   })(req, res, next);
 });
 

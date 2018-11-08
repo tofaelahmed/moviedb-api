@@ -21,10 +21,12 @@ const MovieSchema = new mongoose.Schema({
           max: [5, "Rating should not be more then 5"],
           required: true
         },
-        comment: { type: String }
+        comment: { type: String },
+        date: { type: Date, default: Date.now }
       }
     ]
-  }
+  },
+  createdAt: { type: Date, default: Date.now }
 });
 
 MovieSchema.virtual("avg_rating").get(function() {

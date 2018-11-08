@@ -3,6 +3,7 @@
  * @module services/movie-service
  */
 
+const ObjectId = require("mongoose").Types.ObjectId;
 const { Movie } = require("../models");
 const socketHandler = require("../socket/socket-handler");
 const NotFoundError = require("../errors/not-found");
@@ -16,7 +17,13 @@ const logger = require("../logger");
 module.exports.getMovies = () => {
   return Movie.find();
 };
-
+/**
+ * get details of a movie by its Id
+ * @param movieId
+ */
+module.exports.getMovieById = movieId => {
+  return Movie.findById(movieId);
+};
 /**
  * creates a new movie in the db
  *
@@ -85,9 +92,11 @@ module.exports.updateMovie = (
 
       return movie.save();
     })
-    .then(movie => {
-      socketHandler.notifyMovieUpdated(movie);
-      return movie;
+    .then(updatedMovie => {
+      console.log(updatedMovie);
+      console.log(socketHandler);
+      socketHandler.notifyMovieUpdated(updatedMovie);
+      return updatedMovie;
     });
 };
 
@@ -97,8 +106,11 @@ module.exports.updateMovie = (
  * @param movieId
  */
 module.exports.deleteMovie = movieId => {
-  logger.debug(`movie-service: deleting movie, movie id: ${id}`);
-  return Movie.remove({ _id: movieId });
+  logger.debug(`movie-service: deleting movie, movie id: ${movieId}`);
+  return Movie.remove({ _id: new ObjectId(movieId) }).then(movie => {
+    socketHandler.notifyMovieDeleted(movieId);
+    return movie;
+  });
 };
 
 /**
@@ -113,7 +125,7 @@ module.exports.addReview = (rating, comment, movieId, userId) => {
   logger.debug(
     `movie-service: creating review, movie id: ${movieId} , user id: ${userId}`
   );
-  return Movie.findOne({ "reviews.user": userId })
+  return Movie.findOne({ "reviews.user": userId, _id: new ObjectId(movieId) })
     .then(movie => {
       if (movie) {
         logger.error(
@@ -137,8 +149,8 @@ module.exports.addReview = (rating, comment, movieId, userId) => {
 
       return movie.save();
     })
-    .then(movie => {
-      socketHandler.notifyMovieUpdated(movie);
-      return movie;
+    .then(updatedMovie => {
+      socketHandler.notifyMovieUpdated(updatedMovie);
+      return updatedMovie;
     });
 };

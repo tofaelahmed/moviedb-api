@@ -15,7 +15,8 @@ const UserSchema = new mongoose.Schema({
     required: true,
     validate: [validateEmail, "Email address not valid"]
   },
-  password: { type: String, required: true, minlength: 3, maxlength: 30 }
+  password: { type: String, required: true, minlength: 6, maxlength: 30 },
+  date: { type: Date, default: Date.now }
 });
 
 UserSchema.pre("save", function(next) {
