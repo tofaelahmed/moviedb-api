@@ -14,7 +14,7 @@ const logger = require("../logger");
 /**
  * get list of all movies
  */
-module.exports.getMovies = () => {
+module.exports.getMovies = userId => {
   return Movie.find();
 };
 /**
@@ -52,7 +52,10 @@ module.exports.addMovie = (
     user: userId
   });
 
-  return movie.save();
+  return movie.save().then(newMovie => {
+    socketHandler.notifyNewMoviewAdded(newMovie);
+    return newMovie;
+  });
 };
 
 /**
@@ -93,8 +96,6 @@ module.exports.updateMovie = (
       return movie.save();
     })
     .then(updatedMovie => {
-      console.log(updatedMovie);
-      console.log(socketHandler);
       socketHandler.notifyMovieUpdated(updatedMovie);
       return updatedMovie;
     });
