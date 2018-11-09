@@ -115,7 +115,8 @@ module.exports.deleteMovie = movieId => {
 };
 
 /**
- * creates a review for a movie, checks if user already reviewd the movie
+ * creates a review for a movie,
+ * checks if user already reviewd the movie
  *
  * @param rating
  * @param comment
@@ -141,13 +142,13 @@ module.exports.addReview = (rating, comment, movieId, userId) => {
       return Movie.findOne({ _id: movieId });
     })
     .then(movie => {
-      if (movie.reviews)
+      if (movie.reviews) {
         movie.reviews.push({
           user: userId,
           rating: rating,
           comment: comment
         });
-
+      }
       return movie.save();
     })
     .then(updatedMovie => {

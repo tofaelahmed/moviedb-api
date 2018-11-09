@@ -30,9 +30,10 @@ const MovieSchema = new mongoose.Schema({
 });
 
 MovieSchema.virtual("avg_rating").get(function() {
-  if (this.reviews.length === 0) return 0;
+  if (this.reviews.length === 0) return null;
   const sum = this.reviews.reduce((sum, review) => sum + review.rating, 0);
-  return sum / this.reviews.length;
+  const avgRating = sum / this.reviews.length;
+  return avgRating.toFixed(2);
 });
 
 MovieSchema.set("toObject", { virtuals: true });

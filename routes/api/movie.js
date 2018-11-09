@@ -89,7 +89,6 @@ router.put(
         res.status(201).send({ id });
       })
       .catch(error => {
-        console.log(error);
         res.status(500).send(error);
       });
   }
