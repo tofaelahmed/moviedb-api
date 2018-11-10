@@ -122,8 +122,10 @@ module.exports.deleteMovie = movieId => {
  * @param comment
  * @param movieId
  * @param userId
+ * @param userEmail
+
  */
-module.exports.addReview = (rating, comment, movieId, userId) => {
+module.exports.addReview = (rating, comment, movieId, userId, userEmail) => {
   logger.debug(
     `movie-service: creating review, movie id: ${movieId} , user id: ${userId}`
   );

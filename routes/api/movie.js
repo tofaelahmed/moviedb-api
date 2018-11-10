@@ -41,7 +41,7 @@ router.post(
     movieService
       .addMovie(title, releaseDate, duration, director, actors, userId)
       .then(movie => {
-        res.status(201).send({ movie });
+        res.status(201).send(movie);
       })
       .catch(error => {
         res.status(500).send(error);
@@ -58,7 +58,7 @@ router.delete(
     movieService
       .deleteMovie(movieId)
       .then(() => {
-        res.status(200).send({ movieId });
+        res.status(200).send(movieId);
       })
       .catch(error => {
         res.status(500).send(error);
@@ -86,7 +86,7 @@ router.put(
         userId
       )
       .then(id => {
-        res.status(201).send({ id });
+        res.status(201).send(id);
       })
       .catch(error => {
         res.status(500).send(error);
@@ -101,10 +101,10 @@ router.put(
   (req, res, next) => {
     const { rating, comment } = req.body;
     const movieId = req.params.id;
-    const userId = req.user._id;
+    const { _id: userId, email: userEmail } = req.user;
 
     movieService
-      .addReview(rating, comment, movieId, userId)
+      .addReview(rating, comment, movieId, userId, userEmail)
       .then(movie => {
         res.status(201).send(movie);
       })

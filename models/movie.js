@@ -15,13 +15,14 @@ const MovieSchema = new mongoose.Schema({
           ref: "user",
           required: true
         },
+        email: { type: String, required: true },
         rating: {
           type: Number,
           min: [1, "Rating should be atleast 1"],
           max: [5, "Rating should not be more then 5"],
           required: true
         },
-        comment: { type: String },
+        comment: { type: String, required: true },
         date: { type: Date, default: Date.now }
       }
     ]
@@ -29,7 +30,7 @@ const MovieSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-MovieSchema.virtual("avg_rating").get(function() {
+MovieSchema.virtual("avgRating").get(function() {
   if (this.reviews.length === 0) return null;
   const sum = this.reviews.reduce((sum, review) => sum + review.rating, 0);
   const avgRating = sum / this.reviews.length;
