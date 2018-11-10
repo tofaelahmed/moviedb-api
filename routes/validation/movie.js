@@ -1,9 +1,13 @@
 const Joi = require("joi");
 
 const movieValidationSchema = {
-  title: Joi.string().required(),
+  title: Joi.string()
+    .trim()
+    .required(),
   releaseDate: Joi.date().required(),
-  duration: Joi.number().required(),
+  duration: Joi.number()
+    .trim()
+    .required(),
   actors: Joi.array()
     .items(Joi.string())
     .required()

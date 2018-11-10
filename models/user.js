@@ -13,6 +13,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
+    trim: true,
     validate: [validateEmail, "Email address not valid"]
   },
   password: { type: String, required: true, minlength: 6, maxlength: 30 },
