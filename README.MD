@@ -12,10 +12,10 @@ This is the API server for MovieDB task. It is a RESTful API written using [expr
 
 ## Setup
 
-You need to run MongoDB on your development box or if you wish to use any remote url please update it in `database.js`.
+This app currently pointing to a remote MongoDB url.If you wish to use local or any other url please update it in `database.js`.
 
 ```
-git clone
+git clone https://github.com/tofaelahmed/moviedb-api.git
 npm install
 npm start
 ```
