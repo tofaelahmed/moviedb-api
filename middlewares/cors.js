@@ -7,7 +7,7 @@ const allowCORS = (req, res, next) => {
   );
 
   if ("OPTIONS" == req.method) {
-    res.send(200);
+    res.status(200).send();
   } else {
     next();
   }
