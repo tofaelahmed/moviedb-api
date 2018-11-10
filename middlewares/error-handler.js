@@ -7,7 +7,6 @@ const errorHandler = (err, req, res, next) => {
       req.method
     } - ${req.ip}`
   );
-  console.log(err);
   if (err instanceof expressValidation.ValidationError)
     return res.status(err.status).json(err);
 
