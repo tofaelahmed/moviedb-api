@@ -6,8 +6,7 @@ const movieValidationSchema = {
     .required(),
   releaseDate: Joi.date().required(),
   duration: Joi.number()
-    .trim()
-    .required(),
+  .required(),
   actors: Joi.array()
     .items(Joi.string())
     .required()
