@@ -147,6 +147,7 @@ module.exports.addReview = (rating, comment, movieId, userId, userEmail) => {
       if (movie.reviews) {
         movie.reviews.push({
           user: userId,
+          email: userEmail,
           rating: rating,
           comment: comment
         });
