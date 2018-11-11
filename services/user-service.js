@@ -11,8 +11,8 @@ const logger = require("../logger");
 /**
  * creates a new user, throws error for duplicate email
  *
- * @param email
- * @param password
+ * @param {string} email
+ * @param {string} password
  */
 module.exports.signUp = (email, password) => {
   return User.find({ email }).then(users => {

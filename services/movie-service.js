@@ -27,12 +27,12 @@ module.exports.getMovieById = movieId => {
 /**
  * creates a new movie in the db
  *
- * @param title
- * @param releaseDate
- * @param duration
- * @param director
- * @param actors
- * @param userId
+ * @param {string} title
+ * @param {Date}releaseDate
+ * @param {number} duration
+ * @param {string} director
+ * @param {Array<String>} actors
+ * @param {string} userId
  */
 module.exports.addMovie = (
   title,
@@ -61,12 +61,12 @@ module.exports.addMovie = (
 /**
  * updates existing movie in the db
  *
- * @param id
- * @param releaseDate
- * @param duration
- * @param director
- * @param actors
- * @param userId
+ * @param {string} id
+ * @param {Date} releaseDate
+ * @param {number} duration
+ * @param {string} director
+ * @param {string} actors
+ * @param {string} userId
  */
 module.exports.updateMovie = (
   id,
@@ -104,7 +104,7 @@ module.exports.updateMovie = (
 /**
  * deletes a movie from db by id
  *
- * @param movieId
+ * @param {string} movieId
  */
 module.exports.deleteMovie = movieId => {
   logger.debug(`movie-service: deleting movie, movie id: ${movieId}`);
@@ -118,11 +118,11 @@ module.exports.deleteMovie = movieId => {
  * creates a review for a movie,
  * checks if user already reviewd the movie
  *
- * @param rating
- * @param comment
- * @param movieId
- * @param userId
- * @param userEmail
+ * @param {number} rating
+ * @param {string} comment
+ * @param {string} movieId
+ * @param {string} userId
+ * @param {string} userEmail
 
  */
 module.exports.addReview = (rating, comment, movieId, userId, userEmail) => {
