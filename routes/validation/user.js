@@ -15,7 +15,7 @@ module.exports.signup = {
       .email()
       .required(),
     password: Joi.string()
-      .min(3)
+      .min(6)
       .max(30)
       .required()
   }

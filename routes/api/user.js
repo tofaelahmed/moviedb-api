@@ -23,7 +23,7 @@ router.post("/login", validate(validation.login), function(req, res, next) {
   })(req, res, next);
 });
 
-router.post("/signup", function(req, res, next) {
+router.post("/signup", validate(validation.signup), function(req, res, next) {
   const { email, password } = req.body;
   userService
     .signUp(email, password)
